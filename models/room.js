@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
     });
     Room.associate = function(models) {
         Room.belongsTo(models.Hotel)
-        Room.belongsToMany(models.User, {through: models.Reservation})
+        Room.belongsToMany(models.User, {through: models.Reservation, foreignKey: "RoomId", otherKey: "UserId"});
     };
     return Room
 }

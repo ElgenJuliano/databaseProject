@@ -1,7 +1,6 @@
-const db = require(".");
 
 module.exports = (sequelize, Sequelize) => {
-    const Rate = sequelize.define('Rate', {
+    const Rate = sequelize.define("Rate", {
         Value: {
             type: Sequelize.DataTypes.INTEGER,
             validate: {
@@ -9,9 +8,14 @@ module.exports = (sequelize, Sequelize) => {
                 max: 5
             }
         }
-    },{
+    }, {
         timestamps: false
     });
-    return Rate
-}
 
+    Rate.associate = function(models) {
+        Rate.belongsTo(models.User, { foreignKey: "UserId" });
+        Rate.belongsTo(models.Hotel, { foreignKey: "HotelId" });
+    };
+
+    return Rate;
+};
